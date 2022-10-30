@@ -1,6 +1,8 @@
-require('dotenv').config()
-const mineflayer = require('mineflayer')
-const prompt = require('prompt')
+import dotenv from 'dotenv'
+import mineflayer from 'mineflayer'
+import inquirer from "inquirer"
+
+dotenv.config()
 
 const bot = mineflayer.createBot({
     host: process.env.HOST,
@@ -11,16 +13,25 @@ const bot = mineflayer.createBot({
 })
 
 bot.on('chat', (username, message) => {
+    if (username === bot.username) return
     console.log(`${username}: ${message}`);
 })
 
 bot.on('login', () => {
-    prompt.start()
-    prompt.get('message', (err, result) => {
-        bot.chat(result.message)
-
-        if (err) {
-            console.log("ERROR: ", err)
-        }
-    })
+    chat()
 })
+
+const question = [
+    {
+        type: 'input',
+        name: 'message',
+        message: 'Chat: '
+    }
+]
+
+function chat() {
+    inquirer.prompt(question).then(answers => {
+        bot.chat(answers.message)
+        chat()
+    })
+}
