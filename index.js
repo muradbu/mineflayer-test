@@ -40,7 +40,7 @@ const commands = [
                 ping: player.ping,
                 uuid: player.uuid,
                 gamemode: player.gamemode,
-                position: player.entity.position.x + ', ' + player.entity.position.y + ', ' + player.entity.position.z
+                position: player.entity?.position?.x + ', ' + player.entity?.position?.y + ', ' + player.entity?.position?.z
             })))
         }
     },
