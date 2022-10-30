@@ -1,3 +1,4 @@
+require('dotenv').config()
 const mineflayer = require('mineflayer')
 
 mineflayer.createBot({
